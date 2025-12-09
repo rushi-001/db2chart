@@ -166,23 +166,6 @@ const result = formatChartData(weather, {
 
 ---
 
-# Folder Structure (V1.0.0)
-
-```
-src/
-  index.ts
-  formatter.ts
-  grouping.ts
-  aggregation.ts
-  types.ts
-
-package.json
-README.md
-tsconfig.json
-```
-
----
-
 # Contributing
 
 Pull requests are welcome. For major changes, please open an issue to discuss.
