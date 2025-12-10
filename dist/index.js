@@ -1,5 +1,6 @@
 import { aggregateValues } from "./aggregation.js";
 import { groupByInterval } from "./grouping.js";
+import { isNumberSafe } from "./utils/isNumberSafe";
 export function formatChartData(data, options) {
     const { timeStampKey, // - createdAt, updatedAt, ...
     valueKeys, // - sales, profit, ...
@@ -12,7 +13,7 @@ export function formatChartData(data, options) {
     const datasets = valueKeys.map((key) => {
         const values = lables.map((label) => {
             const rows = grouped[label] || [];
-            return aggregateValues(rows.map((r) => r[key]), aggregation);
+            return aggregateValues(rows.map((r) => isNumberSafe(r[key])), aggregation);
         });
         return { label: key, data: values };
     });

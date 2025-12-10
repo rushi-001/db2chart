@@ -86,7 +86,7 @@ Detect invalid input early.
 
 ---
 
-# Installation (Current V1.0.0)
+# Installation (Current V1.1.0)
 
 ```sh
 npm install db2chart
