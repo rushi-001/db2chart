@@ -12,6 +12,7 @@ export function formatChartData(data: [], options: ChartFormatterOptions) {
   } = options;
 
   const grouped = groupByInterval(data, timeStampKey, groupBy);
+
   // - Extract the keys from the grouped data.
   const lables = Object.keys(grouped).sort();
 

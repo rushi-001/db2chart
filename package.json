@@ -1,51 +1,52 @@
 {
-    "name": "db2chart",
-    "version": "1.0.0",
-    "description": "A lightweight utility that converts raw database records into chart-ready data with automatic timestamp grouping and aggregation.",
-    "keywords": [
-        "chart",
-        "charts",
-        "chart-data",
-        "chart-formatter",
-        "chart-builder",
-        "chart-transform",
-        "db-to-chart",
-        "data-to-chart",
-        "timeseries",
-        "time-series",
-        "aggregation",
-        "grouping",
-        "data-formatting",
-        "data-processing",
-        "visualization",
-        "chartjs",
-        "echarts",
-        "apexcharts",
-        "recharts"
-    ],
-    "homepage": "https://github.com/rushi-001/db2chart#readme",
-    "bugs": {
-        "url": "https://github.com/rushi-001/db2chart/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/rushi-001/db2chart.git"
-    },
-    "license": "MIT",
-    "author": "Rushi Panchal",
-    "type": "module",
-    "main": "dist/index.js",
-    "exports": {
-        ".": "./dist/index.js"
-    },
-    "scripts": {
-        "dev": "node index.ts",
-        "build": "tsc"
-    },
-    "dependencies": {
-        "dayjs": "^1.11.19"
-    },
-    "devDependencies": {
-        "@types/node": "^24.10.2"
-    }
+  "name": "db2chart",
+  "version": "1.1.0",
+  "description": "A lightweight utility that converts raw database records into chart-ready data with automatic timestamp grouping and aggregation.",
+  "keywords": [
+    "chart",
+    "charts",
+    "chart-data",
+    "chart-formatter",
+    "chart-builder",
+    "chart-transform",
+    "db-to-chart",
+    "data-to-chart",
+    "timeseries",
+    "time-series",
+    "aggregation",
+    "grouping",
+    "data-formatting",
+    "data-processing",
+    "visualization",
+    "chartjs",
+    "echarts",
+    "apexcharts",
+    "recharts"
+  ],
+  "homepage": "https://github.com/rushi-001/db2chart#readme",
+  "bugs": {
+    "url": "https://github.com/rushi-001/db2chart/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rushi-001/db2chart.git"
+  },
+  "license": "MIT",
+  "author": "Rushi Panchal",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "node index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.19"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "typescript": "^5.9.3"
+  }
 }
