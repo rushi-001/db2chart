@@ -12,15 +12,15 @@ Perfect for Chart.js, ECharts, ApexCharts, Recharts, or any visualization librar
 
 Group DB records by:
 
--   `day`
--   `week`
--   `month`
+- `day`
+- `week`
+- `month`
 
 ### ✔ Aggregations
 
--   `sum`
--   `avg`
--   `count`
+- `sum`
+- `avg`
+- `count`
 
 ### ✔ Multi-dataset output
 
@@ -32,9 +32,9 @@ Format any numeric field into a dataset array:
 
 ### ✔ Automatic numeric handling
 
--   Converts numeric strings like `"6.3"` → `6.3`
--   Ignores invalid numbers safely
--   Falls back to `count` for non-numeric fields
+- Converts numeric strings like `"6.3"` → `6.3`
+- Ignores invalid numbers safely
+- Falls back to `count` for non-numeric fields
 
 ### ✔ Works with any database
 
@@ -46,23 +46,23 @@ You provide raw JSON rows — db2chart handles the rest.
 
 ### Automatic type detection
 
--   numeric vs categorical
--   boolean ("Yes"/"No") normalization
--   null/undefined handling
+- numeric vs categorical
+- boolean ("Yes"/"No") normalization
+- null/undefined handling
 
 ### Advanced grouping
 
--   `hour`
--   `quarter`
--   `year`
+- `hour`
+- `quarter`
+- `year`
 
 ### Additional aggregations
 
--   `min`
--   `max`
--   `median`
--   `sumBy`
--   `percentage`
+- `min`
+- `max`
+- `median`
+- `sumBy`
+- `percentage`
 
 ### Category charts
 
@@ -76,9 +76,9 @@ WindDir = ["NW", "SW", "NW"] → { "NW": 2, "SW": 1 }
 
 Return formats matching:
 
--   Chart.js
--   ApexCharts
--   ECharts
+- Chart.js
+- ApexCharts
+- ECharts
 
 ### Built-in schema validator
 
@@ -100,16 +100,16 @@ npm install db2chart
 import { formatChartData } from "db2chart";
 
 const data = [
-    { createdAt: "2024-01-01", sales: 120, profit: 40 },
-    { createdAt: "2024-01-01", sales: 80, profit: 20 },
-    { createdAt: "2024-01-02", sales: 150, profit: 50 },
+  { createdAt: "2024-01-01", sales: 120, profit: 40 },
+  { createdAt: "2024-01-01", sales: 80, profit: 20 },
+  { createdAt: "2024-01-02", sales: 150, profit: 50 },
 ];
 
 const result = formatChartData(data, {
-    timeStampKey: "createdAt",
-    valueKeys: ["sales", "profit"],
-    groupBy: "day",
-    aggregation: "sum",
+  timeStampKey: "createdAt",
+  valueKeys: ["sales", "profit"],
+  groupBy: "day",
+  aggregation: "sum",
 });
 
 console.log(result);
@@ -119,11 +119,11 @@ console.log(result);
 
 ```json
 {
-    "lables": ["01-01-2024", "02-01-2024"],
-    "datasets": [
-        { "label": "sales", "data": [200, 150] },
-        { "label": "profit", "data": [60, 50] }
-    ]
+  "lables": ["01-01-2024", "02-01-2024"],
+  "datasets": [
+    { "label": "sales", "data": [200, 150] },
+    { "label": "profit", "data": [60, 50] }
+  ]
 }
 ```
 
@@ -133,34 +133,34 @@ console.log(result);
 
 ```ts
 const weather = [
-    {
-        createdAt: "2023-09-09",
-        MinTemp: 8,
-        MaxTemp: 24.3,
-        Sunshine: "6.3",
-        WindGustDir: "NW",
-        RainToday: "No",
-    },
+  {
+    createdAt: "2023-09-09",
+    MinTemp: 8,
+    MaxTemp: 24.3,
+    Sunshine: "6.3",
+    WindGustDir: "NW",
+    RainToday: "No",
+  },
 ];
 
 const result = formatChartData(weather, {
-    timeStampKey: "createdAt",
-    valueKeys: ["MinTemp", "MaxTemp", "Sunshine"],
-    groupBy: "day",
-    aggregation: "avg",
+  timeStampKey: "createdAt",
+  valueKeys: ["MinTemp", "MaxTemp", "Sunshine"],
+  groupBy: "day",
+  aggregation: "avg",
 });
 ```
 
-### Auto-converted output:
+### Auto-converted output
 
 ```json
 {
-    "lables": ["09-09-2023"],
-    "datasets": [
-        { "label": "MinTemp", "data": [8] },
-        { "label": "MaxTemp", "data": [24.3] },
-        { "label": "Sunshine", "data": [6.3] }
-    ]
+  "lables": ["09-09-2023"],
+  "datasets": [
+    { "label": "MinTemp", "data": [8] },
+    { "label": "MaxTemp", "data": [24.3] },
+    { "label": "Sunshine", "data": [6.3] }
+  ]
 }
 ```
 

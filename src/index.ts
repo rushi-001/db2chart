@@ -1,30 +1,31 @@
 import { ChartFormatterOptions, ChartOutput } from "./types";
-import { aggregateValues } from "./aggregation";
-import { groupByInterval } from "./grouping";
+import { aggregateValues } from "./aggregation.js";
+import { groupByInterval } from "./grouping.js";
+import { isNumberSafe } from "./utils/isNumberSafe";
 
 export function formatChartData(data: [], options: ChartFormatterOptions) {
-    const {
-        timeStampKey, // - createdAt, updatedAt, ...
-        valueKeys, // - sales, profit, ...
-        groupBy = "day", // - day or week or month
-        aggregation = "sum", // - sum or avg or count
-    } = options;
+  const {
+    timeStampKey, // - createdAt, updatedAt, ...
+    valueKeys, // - sales, profit, ...
+    groupBy = "day", // - day or week or month
+    aggregation = "sum", // - sum or avg or count
+  } = options;
 
-    const grouped = groupByInterval(data, timeStampKey, groupBy);
-    // - Extract the keys from the grouped data.
-    const lables = Object.keys(grouped).sort();
+  const grouped = groupByInterval(data, timeStampKey, groupBy);
+  // - Extract the keys from the grouped data.
+  const lables = Object.keys(grouped).sort();
 
-    const datasets = valueKeys.map((key) => {
-        const values = lables.map((label) => {
-            const rows = grouped[label] || [];
-            return aggregateValues(
-                rows.map((r) => r[key]),
-                aggregation
-            );
-        });
-
-        return { label: key, data: values };
+  const datasets = valueKeys.map((key) => {
+    const values = lables.map((label) => {
+      const rows = grouped[label] || [];
+      return aggregateValues(
+        rows.map((r: any): number => isNumberSafe(r[key])),
+        aggregation,
+      );
     });
 
-    return { lables, datasets };
+    return { label: key, data: values };
+  });
+
+  return { lables, datasets };
 }
