@@ -1,7 +1,7 @@
-import { ChartFormatterOptions, ChartOutput } from "./types";
+import type { ChartFormatterOptions, ChartOutput } from "./types";
 import { aggregateValues } from "./aggregation.js";
 import { groupByInterval } from "./grouping.js";
-import { isNumberSafe } from "./utils/isNumberSafe";
+import { detectFieldType, normalizeValue } from "./utils/typeDetection";
 
 export function formatChartData(data: [], options: ChartFormatterOptions) {
   const {
@@ -14,19 +14,25 @@ export function formatChartData(data: [], options: ChartFormatterOptions) {
   const grouped = groupByInterval(data, timeStampKey, groupBy);
 
   // - Extract the keys from the grouped data.
-  const lables = Object.keys(grouped).sort();
+  const labels = Object.keys(grouped).sort();
 
   const datasets = valueKeys.map((key) => {
-    const values = lables.map((label) => {
+    // - Detect type ONCE per key (important)
+    const rawValues = data.map((r: any) => r[key]);
+    const detectedType = detectFieldType(rawValues);
+
+    const values = labels.map((label) => {
       const rows = grouped[label] || [];
-      return aggregateValues(
-        rows.map((r: any): number => isNumberSafe(r[key])),
-        aggregation,
-      );
+
+      const normalized = rows
+        .map((r: any) => normalizeValue(r[key], detectedType))
+        .filter((v): v is number => typeof v === "number");
+
+      return aggregateValues(normalized, aggregation);
     });
 
     return { label: key, data: values };
   });
 
-  return { lables, datasets };
+  return { labels, datasets };
 }

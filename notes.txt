@@ -1,0 +1,3 @@
+> Flow for V2:
+  - validate → detect types → group → aggregate → format dataset → adapt output
+
