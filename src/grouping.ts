@@ -1,15 +1,8 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear.js";
+import type { TimeInterval } from "./types";
 
 dayjs.extend(weekOfYear);
-
-export type TimeInterval =
-    | "hour"
-    | "day"
-    | "week"
-    | "month"
-    | "quarter"
-    | "year";
 
 export function groupByInterval(
     data: any[],
