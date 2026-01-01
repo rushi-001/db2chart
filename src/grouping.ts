@@ -1,41 +1,64 @@
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear.js";
 
-// --- Enable week() support ---
 dayjs.extend(weekOfYear);
+
+export type TimeInterval =
+    | "hour"
+    | "day"
+    | "week"
+    | "month"
+    | "quarter"
+    | "year";
 
 export function groupByInterval(
     data: any[],
     timeStampKey: string,
-    interval: "day" | "week" | "month"
+    interval: TimeInterval
 ) {
     const groups: Record<string, any[]> = {};
 
     data.forEach((item) => {
-        // - Extracting the timestamp.
         const ts = dayjs(item[timeStampKey]);
+        if (!ts.isValid()) return;
 
-        // - Formating the key.
-        const key =
-            interval === "day"
-                ? ts.format("DD-MM-YYYY")
-                : interval === "week"
-                ? `${ts.year()}-W${ts.week()}`
-                : ts.format("YYYY-MM");
+        let key: string;
 
-        // - Checks key exist if not then create with empty array.
+        switch (interval) {
+            case "hour":
+                // bucket per hour
+                key = ts.format("YYYY-MM-DD HH:00");
+                break;
+
+            case "day":
+                key = ts.format("DD-MM-YYYY");
+                break;
+
+            case "week":
+                key = `${ts.year()}-W${ts.week()}`;
+                break;
+
+            case "month":
+                key = ts.format("YYYY-MM");
+                break;
+
+            case "quarter": {
+                const quarter = Math.floor(ts.month() / 3) + 1;
+                key = `${ts.year()}-Q${quarter}`;
+                break;
+            }
+
+            case "year":
+                key = ts.format("YYYY");
+                break;
+
+            default:
+                key = ts.format("DD-MM-YYYY");
+        }
+
         if (!groups[key]) groups[key] = [];
-
-        // - Push the item in it's key array.
         groups[key].push(item);
     });
 
     return groups;
-
-    // --- Example o/p ---
-    // {
-    //   "15-12-2025": [ ...items ],   // - if interval = day
-    //   "2025-W51": [ ...items ],     // - if interval = week
-    //   "2025-12": [ ...items ]       // - if interval = month
-    // }
 }
